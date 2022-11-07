@@ -1,0 +1,316 @@
+            static int RNG(int maxRange){double rand = Math.random();          //This is the Random Number Generator (RNG) method. The parameters used are the maximum number that I want the RNG to pick. The RNG must pick anywhere from 0 to (max number)
+                                           int rng = (int)(rand*maxRange);
+                                           return rng;}
+
+    
+    public static void main(String[] args) {
+        //Introduction/Start--------------------------------------------------------------------------------------------------------------------------------------------------
+                        Scanner START = new Scanner(System.in);
+                System.out.println("Welcome to 'Casino Madness' by Andrey Skvortsov!");          //The following three lines introduce the game and its rules to the user
+                System.out.println("Game Rules:\n      - The goal of the game is to accumulate 20 points\n      - Points are won by winning bets that you place on a random number generator (RNG)\n      - There are three types of bets you can place:\n            1. The RNG will pick between two numbers that have a range of 7 between them\n            2. The RNG will pick between two numbers that have a range of 5 between them\n            3. The RNG will pick a single number\n      - The value (in points) of winning/losing a bet is revealed at the start of each round\n      - The RNG only picks whole numbers\n      - You start with 10 points. Lose them all and it's game over. Get to 20 and you win");
+                System.out.println("---------------\nPlease enter a character when you are ready to continue");
+                        String userinStart = START.nextLine();          //Calls on the user to input a character to show they are ready to start the game
+
+        //This section holds a score-tracking variable (userScore) which starts the user off with 10 points
+                        int userScore = 10;
+
+                        int userBetvalue;
+
+                        Scanner QWE = new Scanner(System.in);
+
+                        String userinNextRound;          //this variable is used to prompt the user to state their readiness to continue in between rounds
+
+            while(true){          //This puts the entire game into a conditional that is broken once the player reaches a score of 20 or higher or once the user loses all their points. This break means that the game automatically stops and proceeds to celebrating the user's win or wishing them better luck next time
+        
+        
+        //ROUND 1---------------------------------------------------------------------------------------------------------------------------------------------------------
+                System.out.println("---------------\nRound 1:\nThe RNG will pick a number from 0-15\nSelect your bet:");          //This is an intro to the round and its RNG range. It displays which bets the user can pick and the point value of each bet
+                System.out.printf("%-50s%-50s%-50s%n", "Type '1'", "Type '2'", "Type '3'");
+                System.out.printf("%-50s%-50s%-50s%n", "----------", "----------", "----------");
+                System.out.printf("%-50s%-50s%-50s%n", "RNG picks between x and y (difference of 7)", "RNG picks between x and y (difference of 5)", "RNG picks x (a single number)");
+                System.out.printf("%-50s%-50s%-50s%n", "(+2 points/-2 points)", "(+4 points/-4 points)", "(AUTOMATIC WIN/-5 points)");          //End of round intro
+                        
+                        int userinBet;           //Will be used to prompt the user to pick a bet type
+                        
+                    do {userinBet = QWE.nextInt();}     //Error trap---------------------------------------------------------------------
+                    while ((!(userinBet==1))&&(!(userinBet==2))&(!(userinBet==3)));     //End of error trap--------------------------
+                    
+                                int userinMin;          //These three variables are what will prompt the user to input their number choices once they have picked a bet
+                                int userinMax;
+                                int userinSingle;
+                                
+                                
+                    if (userinBet == 1)          //This is what will happen if the user picks bet type "1"----------------------------------------------------------
+                               {userBetvalue = 2;          //This sets the point value of the bet to add/subtract points to the user's total at the end of the round
+                        System.out.println("---\nEnter your numbers one per line with minimum first and maximum second (remember, they must have a difference of 7):");
+                                userinMin = QWE.nextInt();          //Prompts user to enter their min/max numbers
+                                userinMax = QWE.nextInt();
+                                
+                            while ((!(userinMin<userinMax))||((userinMax-userinMin)!=7)||(!(userinMin>=0))||(!(userinMax<=15)))     //Error trap (nested)
+                               {System.out.println("---\nYour numbers are invalid. Please try again");     //------------------------------------------------
+                                        userinMin = QWE.nextInt();     //----------------------------------------------------------------------------------
+                                        userinMax = QWE.nextInt();}     //End of error trap----------------------------------------------------------------
+                                        
+                                final int RNGPICK1 = RNG(15);          //this is the RNG's generated number
+                                
+                        System.out.println("The RNG chooses the number:"+RNGPICK1);          //Tells the user what the RNG picked
+                            if ((userinMin<=RNGPICK1)&&(userinMax>=RNGPICK1))          //This nested condtional "if" statement determines whether or not the user's number choices match up with what the RNG picked
+                               {System.out.println("Your bet was successful: +"+userBetvalue+" points");          //The user's bet was successful, next two lines calculate the user's score and display it to the user
+                                        userScore += userBetvalue;
+                                System.out.println("Total Score: "+userScore);}
+                            else
+                               {System.out.println("Your bet was unsuccessful: -"+userBetvalue+" points");          //The user's bet was unsuccessful
+                                        userScore -= userBetvalue;
+                                System.out.println("Total Score: "+userScore);}}
+                                
+                                
+                    else if (userinBet == 2)           //This is what will happen if the user picks bet type "2"-----------------------------------------------------(note that this conditional is almost identical to previous one)
+                               {userBetvalue = 4;
+                        System.out.println("---\nEnter your numbers one per line with minimum first and maximum second (remember, they must have a difference of 5):");
+                                userinMin = QWE.nextInt();
+                                userinMax = QWE.nextInt();
+                                
+                            while ((!(userinMin<userinMax))||((userinMax-userinMin)!=5)||(!(userinMin>=0))||(!(userinMax<=15)))     //Error trap (nested)
+                               {System.out.println("---\nYour numbers are invalid. Please try again");     //------------------------------------------------
+                                        userinMin = QWE.nextInt();     //----------------------------------------------------------------------------------
+                                        userinMax = QWE.nextInt();}     //End of error trap----------------------------------------------------------------
+                                        
+                                final int RNGPICK1 = RNG(15);
+                                
+                        System.out.println("The RNG chooses the number:"+RNGPICK1);
+                            if ((userinMin<=RNGPICK1)&&(userinMax>=RNGPICK1))
+                               {System.out.println("Your bet was successful: +"+userBetvalue+" points");
+                                        userScore += userBetvalue;
+                                System.out.println("Total Score: "+userScore);}
+                            else
+                               {System.out.println("Your bet was unsuccessful: -"+userBetvalue+" points");
+                                        userScore -= userBetvalue;
+                                System.out.println("Total Score: "+userScore);}}
+                                
+                                
+                    else if (userinBet == 3)          //This is what will happen if the user picks bet type "3"-----------------------------------------------------
+                               {userBetvalue = 5;
+                        System.out.println("---\nEnter your number (remember, it must be a single whole number):");
+                                userinSingle = QWE.nextInt();          //Since this bet type involves picking just one number, we don't need a min and max, just a single number
+                            
+                            while (!(userinSingle>=0)||!(userinSingle<=23))     //Error trap (nested)
+                               {System.out.println("---\nYour number is invalid. Please try again");     //------------------------------------
+                                        userinSingle = QWE.nextInt();}     //End of error trap-----------------------------------------------
+                                        
+                                final int RNGPICK1 = RNG(15);
+                                
+                        System.out.println("The RNG chooses the number:"+RNGPICK1);
+                            if (userinSingle == RNGPICK1)
+                               {System.out.println("Your bet was successful: AUTOMATIC WIN");
+                                        userScore = 20;          //If the user gets bet type 3 correct in any round, it is an automatic win considering how low the chances are to get an exact number from 0-15, 23, or 30
+                                break;}          //This breaks the while loop that starts before round 1, taking the user to the bottom of this program's code and automatically congratulating them on their win
+                            else
+                               {System.out.println("Your bet was unsuccessful: -"+userBetvalue+" points");
+                                        userScore -= userBetvalue;
+                                System.out.println("Total Score: "+userScore);}}
+                                
+                    //---------------
+                    if (userScore>19)          //At the end of each round, this conditional checks if the user has won by reaching a score of 20 or higher or if they have not yet won and need to continue playing.
+                       {break;}          //If they HAVE won, this break takes the user to the bottom of the program's code and congratulates them on their win. It is impossible to win in round 1 unless you pick bet type 3 where you can win automatically because bet types 1 and 2 do not give enough points in round 1 to win. This means that this conditional is not needed, as the code already breaks if the user wins with bet type 3, however, I keep it here to maintain consistency and organization and to avoid possibly confusing exceptions
+                System.out.println("---------------\nPlease enter a character when you are ready to continue");
+                        userinNextRound = START.nextLine();          //At the end of each round, this pauses the code and prompts the user to state their readiness to continue in order to avoid overwhelming the user with text
+        
+        
+        //ROUND 2---------------------------------------------------------------------------------------------------------------------------------------------------------
+                System.out.println("---------------\nRound 2:\nThe RNG will pick a number from 0-23\nSelect your bet:");          //intro to the round and its point values/bet types
+                System.out.printf("%-50s%-50s%-50s%n", "Type '1'", "Type '2'", "Type '3'");
+                System.out.printf("%-50s%-50s%-50s%n", "----------", "----------", "----------");
+                System.out.printf("%-50s%-50s%-50s%n", "RNG picks between x and y (difference of 7)", "RNG picks between x and y (difference of 5)", "RNG picks x (a single number)");
+                System.out.printf("%-50s%-50s%-50s%n", "(+4 points/-4 points)", "(+7 points/-7 points)", "(AUTOMATIC WIN/-8 points)");
+                        
+                    do {userinBet = QWE.nextInt();}//Error trap---------------------------------------------------------------------
+                    while ((!(userinBet==1))&&(!(userinBet==2))&&(!(userinBet==3)));//End of error trap-------------------------
+                               
+                               
+                    if (userinBet == 1)          //This is what will happen if the user picks bet type "1"----------------------------------------------------------
+                               {userBetvalue = 4;          //Point values or bet types change with each round. Last round this point value would instead be 2. Next round it will be 5.
+                        System.out.println("---\nEnter your numbers one per line with minimum first and maximum second (remember, they must have a difference of 7):");
+                                userinMin = QWE.nextInt();
+                                userinMax = QWE.nextInt();
+                                
+                            while ((!(userinMin<userinMax))||((userinMax-userinMin)!=7)||(!(userinMin>=0))||(!(userinMax<=23)))     //Error trap--------------------------
+                               {System.out.println("---\nYour numbers are invalid. Please try again");     //------------------------------
+                                        userinMin = QWE.nextInt();     //----------------------------------------------------------------
+                                        userinMax = QWE.nextInt();}     //End of error trap----------------------------------------------
+                                        
+                                final int RNGPICK2 = RNG(23);
+                                
+                        System.out.println("The RNG chooses the number:"+RNGPICK2);
+                            if ((userinMin<=RNGPICK2)&&(userinMax>=RNGPICK2))
+                               {System.out.println("Your bet was successful: +"+userBetvalue+" points");
+                                        userScore += userBetvalue;
+                                System.out.println("Total Score: "+userScore);}
+                            else
+                               {System.out.println("Your bet was unsuccessful: -"+userBetvalue+" points");
+                                        userScore -= userBetvalue;
+                                System.out.println("Total Score: "+userScore);}}
+                                
+                                
+                    else if (userinBet == 2)          //This is what will happen if the user picks bet type "2"-----------------------------------------------------
+                               {userBetvalue = 7;
+                        System.out.println("---\nEnter your numbers one per line with minimum first and maximum second (remember, they must have a difference of 5):");
+                                userinMin = QWE.nextInt();
+                                userinMax = QWE.nextInt();
+                                
+                            while ((!(userinMin<userinMax))||((userinMax-userinMin)!=5)||(!(userinMin>=0))||(!(userinMax<=23)))     //Error trap------------------------------
+                               {System.out.println("---\nYour numbers are invalid. Please try again");     //----------------------------------
+                                        userinMin = QWE.nextInt();     //--------------------------------------------------------------------
+                                        userinMax = QWE.nextInt();}     //End of error trap--------------------------------------------------
+                                        
+                                final int RNGPICK2 = RNG(23);
+                                
+                        System.out.println("The RNG chooses the number:"+RNGPICK2);
+                            if ((userinMin<=RNGPICK2)&&(userinMax>=RNGPICK2))
+                               {System.out.println("Your bet was successful: +"+userBetvalue+" points");
+                                        userScore += userBetvalue;
+                                System.out.println("Total Score: "+userScore);}
+                            else
+                               {System.out.println("Your bet was unsuccessful: -"+userBetvalue+" points");
+                                        userScore -= userBetvalue;
+                                System.out.println("Total Score: "+userScore);}}
+                                
+                                
+                    else if (userinBet == 3)          //This is what will happen if the user picks bet type "3"-----------------------------------------------------
+                               {userBetvalue = 8;
+                        System.out.println("---\nEnter your number (remember, it must be a single whole number):");
+                                userinSingle = QWE.nextInt();
+                                
+                            while (!(userinSingle>=0)||!(userinSingle<=23))     //Error trap-----------------------------------------------
+                               {System.out.println("---\nYour number is invalid. Please try again");     //------------------------------------
+                                        userinSingle = QWE.nextInt();}     //End of error trap-----------------------------------------------
+                                        
+                                final int RNGPICK2 = RNG(23);
+                                
+                        System.out.println("The RNG chooses the number:"+RNGPICK2);
+                            if (userinSingle == RNGPICK2)
+                               {System.out.println("Your bet was successful: AUTOMATIC WIN");
+                                        userScore = 20;
+                                break;}
+                            else
+                               {System.out.println("Your bet was unsuccessful: -"+userBetvalue+" points");
+                                        userScore -= userBetvalue;
+                                System.out.println("Total Score: "+userScore);}}
+                                
+                    //---------------
+                    if ((userScore>19)||(userScore<1))
+                       {break;}
+                System.out.println("---------------\nPlease enter a character when you are ready to continue");
+                        userinNextRound = START.nextLine();
+        
+        
+        //ROUND 3---------------------------------------------------------------------------------------------------------------------------------------------------------
+                System.out.println("---------------\nRound 3:\nThe RNG will pick a number from 0-30\nSelect your bet:");          //round intro
+                System.out.printf("%-50s%-50s%-50s%n", "Type '1'", "Type '2'", "Type '3'");
+                System.out.printf("%-50s%-50s%-50s%n", "----------", "----------", "----------");
+                System.out.printf("%-50s%-50s%-50s%n", "RNG picks between x and y (difference of 7)", "RNG picks between x and y (difference of 5)", "RNG picks x (a single number)");
+                System.out.printf("%-50s%-50s%-50s%n", "(+5 points/-5 points)", "(+8 points/-8 points)", "(AUTOMATIC WIN/-9 points)");
+                        
+                    do {userinBet = QWE.nextInt();}     //Error trap---------------------------------------------------------------------
+                    while ((!(userinBet==1))&&(!(userinBet==2))&&(!(userinBet==3)));     //End of error trap-------------------------
+                                
+                                
+                    if (userinBet == 1)     //This is what will happen if the user picks bet type "1"----------------------------------------------------------
+                               {userBetvalue = 5;
+                        System.out.println("---\nEnter your numbers one per line with minimum first and maximum second (remember, they must have a difference of 7):");
+                                userinMin = QWE.nextInt();
+                                userinMax = QWE.nextInt();
+                                
+                            while ((!(userinMin<userinMax))||((userinMax-userinMin)!=7)||(!(userinMin>=0))||(!(userinMax<=30)))     //Error trap--------------------------
+                               {System.out.println("---\nYour numbers are invalid. Please try again");     //------------------------------
+                                        userinMin = QWE.nextInt();     //----------------------------------------------------------------
+                                        userinMax = QWE.nextInt();}     //End of error trap----------------------------------------------
+                                        
+                                final int RNGPICK3 = RNG(30);
+                                
+                        System.out.println("The RNG chooses the number:"+RNGPICK3);
+                            if ((userinMin<=RNGPICK3)&&(userinMax>=RNGPICK3))
+                               {System.out.println("Your bet was successful: +"+userBetvalue+" points");
+                                        userScore += userBetvalue;
+                                System.out.println("Total Score: "+userScore);}
+                            else
+                               {System.out.println("Your bet was unsuccessful: -"+userBetvalue+" points");
+                                        userScore -= userBetvalue;
+                                System.out.println("Total Score: "+userScore);}}
+                                
+                                
+                    else if (userinBet == 2)          //This is what will happen if the user picks bet type "2"-----------------------------------------------------
+                               {userBetvalue = 8;
+                        System.out.println("---\nEnter your numbers one per line with minimum first and maximum second (remember, they must have a difference of 5):");
+                                userinMin = QWE.nextInt();
+                                userinMax = QWE.nextInt();
+                                
+                            while ((!(userinMin<userinMax))||((userinMax-userinMin)!=5)||(!(userinMin>=0))||(!(userinMax<=30)))     //Error trap------------------------------
+                               {System.out.println("---\nYour numbers are invalid. Please try again");     //----------------------------------
+                                        userinMin = QWE.nextInt();     //--------------------------------------------------------------------
+                                        userinMax = QWE.nextInt();}     //End of error trap--------------------------------------------------
+                                        
+                                final int RNGPICK3 = RNG(30);
+                                
+                        System.out.println("The RNG chooses the number:"+RNGPICK3);
+                            if ((userinMin<=RNGPICK3)&&(userinMax>=RNGPICK3))
+                               {System.out.println("Your bet was successful: +"+userBetvalue+" points");
+                                        userScore += userBetvalue;//Note the shorthand math operator use
+                                System.out.println("Total Score: "+userScore);}
+                            else
+                               {System.out.println("Your bet was unsuccessful: -"+userBetvalue+" points");
+                                        userScore -= userBetvalue;//Note the shorthand math operator use
+                                System.out.println("Total Score: "+userScore);}}
+                                
+                                
+                    else if (userinBet == 3)          //This is what will happen if the user picks bet type "3"-----------------------------------------------------
+                               {userBetvalue = 9;
+                        System.out.println("---\nEnter your number (remember, it must be a single whole number):");
+                                userinSingle = QWE.nextInt();
+                                
+                            while (!(userinSingle>=0)||!(userinSingle<=30))     //Error trap-----------------------------------------------
+                               {System.out.println("---\nYour number is invalid. Please try again");     //------------------------------------
+                                        userinSingle = QWE.nextInt();}     //End of error trap-----------------------------------------------
+                                        
+                                final int RNGPICK3 = RNG(30);
+                              
+                        System.out.println("The RNG chooses the number:"+RNGPICK3);
+                            if (userinSingle == RNGPICK3)
+                               {System.out.println("Your bet was successful: AUTOMATIC WIN");
+                                        userScore = 20;
+                                break;}
+                            else
+                               {System.out.println("Your bet was unsuccessful: -"+userBetvalue+" points");
+                                        userScore -= userBetvalue;//Note the shorthand math operator use
+                                System.out.println("Total Score: "+userScore);}}
+                break;}          //End of "while" loop that begins before round 1. The game ends here, and if the user has not accumulated a score of 20 or higher or if the user has lost all their points, they lose
+        
+        
+        //Conclusion
+                      if (userScore>19)          //If the user has won by getting 20 or more points, they are congratulated. Otherwise they are wished better luck for the future
+                         {System.out.println("---------------\nCongratulations, you've won! You achieved a score of 20 or higher.\nSee Andrey Skvortsov for a celebratory piece of gum");
+                          System.out.println("                                  .''.       \n" +
+      "       .''.      .        *''*    :_\\/_:     . \n" +
+      "      :_\\/_:   _\\(/_  .:.*_\\/_*   : /\\ :  .'.:.'.\n" +
+      "  .''.: /\\ :   ./)\\   ':'* /\\ * :  '..'.  -=:o:=-\n" +
+      " :_\\/_:'.:::.    ' *''*    * '.\\'/.' _\\(/_'.':'.'\n" +
+      " : /\\ : :::::     *_\\/_*     -= o =-  /)\\    '  *\n" +
+      "  '..'  ':::'     * /\\ *     .'/.\\'.   '\n" +
+      "      *            *..*         :");}
+                      else if (userScore<1)
+                         {System.out.println("You lost all of your points!\n"
+                                 + "     |\n"
+                                 + "     |\n"
+                                 + "     |\n"
+                                 + "     |\n"
+                                 + "     |\n"
+                                 + "     |\n"
+                                 + "     |_________"+"\nBetter luck next time!");}
+                      else
+                         {System.out.println("You failed to reach a score of 20 or higher, meaning you have lost\n"
+                                 + "     |\n"
+                                 + "     |\n"
+                                 + "     |\n"
+                                 + "     |\n"
+                                 + "     |\n"
+                                 + "     |\n"
+                                 + "     |_________"+"\nBetter luck next time!");}}//end of main method
