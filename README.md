@@ -1,6 +1,8 @@
 # CasinoGame
 Gr 11 Intro to CS Mini-Project
 
+Written in Java using NetBeans 8.2 IDE
+
 This is a probability-based mini-game. At the moment, it lacks a GUI and runs only on an IDE console.
 The games rules are stated at the beginning of the game: the goal is to accumulate 20 points; 
 user starts with 10 points; 
